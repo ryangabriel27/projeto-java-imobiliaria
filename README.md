@@ -1,7 +1,67 @@
 #  Gerenciamento de Propriedades Imobiliárias
 
-## Escopo
-Desenvolver uma aplicação voltada para administradoras de imóveis que gerenciam diversas propriedades. O sistema permitirá o **cadastro** de `IMÓVEIS`, `PROPRIETÁRIOS`, `LOCATÁRIOS` e `CONTRATOS DE LOCAÇÃO`, além de **fornecer relatórios** detalhados sobre imóveis disponíveis, locações ativas e vencimento de contratos e aluguéis. A aplicação visa simplificar o processo de gerenciamento imobiliário, oferecendo uma **interface gráfica intuitiva** e funcionalidades que garantem o controle eficiente sobre os dados cadastrados.
+## Escopo do Sistema
+
+O sistema será uma uma aplicação voltada para administradoras de imóveis que gerenciam diversas propriedades.O sistema permitirá o **cadastro** de `IMÓVEIS`, `LOCATÁRIOS (Usuários)` e `CONTRATOS DE LOCAÇÃO`, além de **fornecer relatórios** detalhados sobre imóveis disponíveis, locações ativas e vencimento de contratos e aluguéis. A aplicação visa simplificar o processo de gerenciamento imobiliário, oferecendo uma **interface gráfica intuitiva** e funcionalidades que garantem o controle eficiente sobre os dados cadastrados.
+
+### 1. **Funcionalidades do Administrador**
+
+Os administradores terão controle total sobre o sistema, com as seguintes responsabilidades e funcionalidades:
+
+#### 1.1. **Gerenciamento da Plataforma**
+- Administrar as operações de locação e monitoramento da atividade dos usuários.
+  
+#### 1.2. **Gerenciamento de Locações**
+- Acompanhar e aprovar as solicitações de locação de usuários.
+- Manter o controle sobre contratos de locação, incluindo datas de início e fim.
+
+#### 1.3. **CRUD de Imóveis**
+- Criar, visualizar, editar e deletar imóveis no sistema.
+- Cada imóvel deve incluir cidade, endereço, valor do aluguel, descrição e status (DISPONÍVEL ou ALUGADO).
+  
+#### 1.4. **CRUD de Usuários**
+- Gerenciar os perfis de usuários, incluindo adicionar novos usuários, editar dados de perfis existentes e remover usuários.
+- Os usuários são identificados pelo CPF e possuem informações como nome, email e telefone.
+
+### 2. **Funcionalidades dos Usuários**
+
+Os usuários podem navegar e interagir com o sistema para visualizar imóveis disponíveis e solicitar locações.
+
+#### 2.1. **Locação de Imóveis**
+- Os usuários podem visualizar uma lista de imóveis disponíveis para locação, com filtros por cidade e preço.
+- Solicitar a locação de um imóvel através de um sistema web, enviando uma requisição POST para a API com seus dados e a identificação do imóvel.
+- Após a aprovação da solicitação pelo administrador, será gerado um relatório que inclui detalhes sobre o imóvel alugado e as datas de início e fim da locação.
+
+### 3. **Gerenciamento de Imóveis**
+
+A plataforma permite que os administradores mantenham uma base de dados de imóveis, com os seguintes atributos:
+
+- **Cidade**: Localização do imóvel.
+- **Endereço**: Endereço completo do imóvel.
+- **Aluguel Valor**: Valor mensal do aluguel do imóvel.
+- **Descrição**: Informações adicionais sobre o imóvel.
+- **Status**: O status atual do imóvel, que pode ser "DISPONÍVEL" ou "ALUGADO".
+  
+Somente administradores poderão criar ou modificar informações dos imóveis.
+
+### 4. **Gerenciamento de Locações**
+
+As locações serão tratadas como contratos entre o usuário e a plataforma, gerenciados pelos administradores:
+
+- **Data de Início e Fim**: A locação terá uma data de início e uma data de fim previamente definidas.
+- **Usuário**: Cada locação estará associada a um usuário (locatário) identificado por uma chave estrangeira no banco de dados.
+- **Imóvel**: Cada locação será vinculada a um imóvel, também identificado por uma chave estrangeira.
+  
+Após a confirmação da locação, será gerado um relatório com os detalhes do contrato.
+
+### 5. **Relatórios de Locações**
+
+O sistema permitirá que relatórios sejam gerados automaticamente quando uma locação for aprovada, contendo:
+
+- Detalhes do imóvel alugado.
+- Informações do locatário.
+- Datas de início e fim da locação.
+
 
 ## Objetivos
 Desenvolver um sistema de **Gerenciamento Imobiliário**, permitindo que os administradores de propriedades **cadastrarem, editem e excluam** `IMÓVEIS`, `PROPRIETÁRIOS`, `LOCATÁRIOS` e `CONTRATOS DE LOCAÇÃO`, além de gerar **relatórios detalhados** sobre imóveis disponíveis, locações ativas e vencimento de contratos, dentro de um prazo de `4 meses`.
@@ -116,16 +176,16 @@ gantt
     Definição de Escopo e Objetivos      :done,    des1, 2024-01-01, 2024-01-15
     Design da Arquitetura e Protótipos   :active,  des2, 2024-01-16, 2024-01-31
 
-    section Mês 2: Desenvolvimento do Back-End (Java)
+    section Mês 2: Desenvolvimento do Sistema de Gerenciamento
     Configuração do Ambiente de Desenvolvimento :done, dev1, 2024-02-01, 2024-02-10
-    Funcionalidades Avançadas do Back-End      :active, dev2, 2024-02-11, 2024-02-28
+    Funcionalidades Avançadas do Sistema     :active, dev2, 2024-02-11, 2024-02-28
 
-    section Mês 3: Desenvolvimento do Front-End (JavaFX/Swing)
+    section Mês 3: Desenvolvimento da Interface gráfica do Sistema
     Desenvolvimento da Interface Gráfica       :active, fe1, 2024-03-01, 2024-03-15
-    Integração com o Back-End                  :active, fe2, 2024-03-16, 2024-03-31
+    Integração com o sistema                 :active, fe2, 2024-03-16, 2024-03-31
 
     section Mês 4: Integração e Testes
-    Integração Completa entre Front-End e Back-End :active, int1, 2024-04-01, 2024-04-15
+    Integração Completa entre funcionalidades :active, int1, 2024-04-01, 2024-04-15
     Testes e Correção de Bugs                     :active, int2, 2024-04-16, 2024-04-30
 
     section Mês 4 (Final): Finalização e Lançamento
@@ -135,24 +195,12 @@ gantt
 
 ```
 
-### Recursos Humanos
-- Gerente de Projetos
-- Desenvolvedor Back-End (Node.js) - Pleno
-- Desenvolvedor Front-End (React) - Pleno
-- DBA (Banco de Dados) - Pleno
-- QA (Qualidade de Software) - Pleno
-- Especialista em Segurança da Informação
-- Estagiário em DEV (Documentação)
-
 ### Recuros de Ferramentas
-- JIRA (Organização)
 - VSCode (Desenvolvimento)
-- Figma/Adobe (Design)
-- Postman (Testes de API)
-- GitHub Actions (CI/CD)
-- MongoDB (Banco de Dados)
-- React (Front-End)
-- Node.js/Next.js (Back-End)
+- Postman/Thunderclient (Testes de API)
+- PostgreSQL (Banco de Dados)
+- Java 
+- GitHub (Versionamento)
 
 ### Análise de Riscos
 `Atrasos e Mudanças nos Requisitos:`
@@ -174,37 +222,56 @@ gantt
 
 ```mermaid
 
-classDiagram 
-    class Usuario {
-        String nome
-        String email
-        String senha
-        String icone
-        String cargo
-        String setor
-        editar()
-        registrar()
-        fazerLogin()
+classDiagram
+    class Adm {
+        - int id
+        - string nome
+        - string cpf
+        - string email
+        - string telefone
+        +gerenciarRelatorios()
+        +crudImoveis()
+        +crudUsuarios()
     }
 
-    class Post {
-        String titulo
-        String conteudo
-        String criador
-        String comentarios
-        Date dataCriacao
-        aplicarComentario()
-        create()
-        read()
-        update()
-        delete()
+    class Usuarios {
+        - int id
+        - string nome
+        - string cpf
+        - string email
+        - string telefone
+        +visualizarImoveisDisponiveis()
+        +solicitarLocacao()
     }
 
-    Usuario "1" -- "0..*" Post : cria >
+    class Imovel {
+        - string cidade
+        - string endereco
+        - double aluguel_valor
+        - string descricao
+        - string status
+        +create()
+        +read()
+        +update()
+        +delete()
+    }
+
+    class Aluguel {
+        - date data_inicio
+        - date data_fim
+        - Usuarios usuario
+        - Imovel imovel
+    }
+
+    Adm "1" -- "*" Imovel : gerencia
+    Adm "1" -- "*" Usuarios : gerencia
+    Usuarios "1" -- "1" Aluguel : solicita
+    Imovel "1" -- "1" Aluguel : inclui
+
 ```
 
 ### Diagrama de Uso
-<img src="imagens\Diagrama Uso - ConnectaCorp.png"> 
+<img src="img-doc/Diagrama de caso de uso.png"/>
 
 ### Diagrama de Fluxo
 
@@ -229,16 +296,5 @@ flowchart TD
 
 ```
 
-
-## Protótipo da pagina principal de Posts:
-
-- ### Baixa Fidelidade:
-<img src="./imagens/baixaFidelidade.png"> 
-
-- ### Média Fidelidade:
-<img src="./imagens/mediaFidelidade.png"> 
-
-- ### Alta Fidelidade:
-<img src="./imagens/altaFidelidade.png"> 
 
 
