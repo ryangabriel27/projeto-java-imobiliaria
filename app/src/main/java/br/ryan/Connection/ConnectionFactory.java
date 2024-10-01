@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import javax.management.RuntimeErrorException;
 
+
 public class ConnectionFactory {
     // Atributos
     private static final String url = "jdbc:postgresql://localhost:5432/projeto_java_imobiliaria";

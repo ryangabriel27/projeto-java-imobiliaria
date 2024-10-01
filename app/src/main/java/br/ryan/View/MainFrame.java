@@ -13,31 +13,30 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import javafx.stage.WindowEvent;
-import sistemasupermercado.Menu;
-
 public class MainFrame extends JFrame {
 
     public MainFrame() {
-        super("Sistema supermercado");
+        super("Sistema de Gerenciamento Imobiliario");
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         JPanel mainPanel = new JPanel();
         add(mainPanel);
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-        JPanel logo = new JPanel();
-        JLabel img = new JLabel();
-        ImageIcon iconMenu = new ImageIcon(getClass().getResource("../../assets/logo2.png"));
-        img.setIcon(iconMenu);
-        logo.add(img, FlowLayout.LEFT); // Adicionando uma imagem ao menu do app
-        mainPanel.add(logo); // Adicionando o painel logo ao painel Principal
+        // JPanel logo = new JPanel();
+        // JLabel img = new JLabel();
+        // ImageIcon iconMenu = new
+        // ImageIcon(getClass().getResource("../../assets/logo2.png"));
+        // img.setIcon(iconMenu);
+        // logo.add(img, FlowLayout.LEFT); // Adicionando uma imagem ao menu do app
+        // mainPanel.add(logo); // Adicionando o painel logo ao painel Principal
 
         // ---------------------*
         // Aplicativo principal:
         JTabbedPane abas = new JTabbedPane();
         abas.add("Imóveis", new ImovelPanel()); // Adiciona o painel de imoveis ao TabbedPane
         abas.add("Clientes", new UsuariosPanel()); // Adiciona o painel de clientes ao TabbedPane
-        abas.add("Registro de aluguéis", new AluguelPanel()); // Adiciona o painel de alugueis ao TabbedPane
+        // abas.add("Registro de aluguéis", new AluguelPanel()); // Adiciona o painel de
+        // alugueis ao TabbedPane
         mainPanel.add(abas);
 
         JButton sair = new JButton("Voltar para o menu");
@@ -64,13 +63,10 @@ public class MainFrame extends JFrame {
 
         });
 
-        sair.addActionListener(e -> {
-            // new Menu().run();
-            this.dispose();
-        });
-    }
-
-    public void run() {
+        // sair.addActionListener(e -> {
+        // // new Menu().run();
+        // this.dispose();
+        // });
         pack();
         setVisible(true);
     }

@@ -45,10 +45,10 @@ public class UsuariosDAO {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Usuario usuario = new Usuario(
-                        rs.getString("cpf"),
                         rs.getString("nome"),
-                        rs.getString("telefone"),
-                        rs.getString("email"));
+                        rs.getString("cpf"),
+                        rs.getString("email"),
+                        rs.getString("telefone"));
                 usuarios.add(usuario);
             }
         } catch (SQLException ex) {

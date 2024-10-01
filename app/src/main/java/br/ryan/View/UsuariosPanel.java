@@ -19,162 +19,164 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import br.ryan.Connection.UsuariosDAO;
+import br.ryan.Controller.UsuarioController;
 import br.ryan.Model.Usuario;
 
 public class UsuariosPanel extends JPanel {
-
     // Componentes
     private JPanel buttonPanel;
-    private JButton cadastraCliente, editaCliente, apagaCliente;
-    private JTextField inputCpf, inputNome, inputEmail;
+    private JButton cadastraUsuario, editaUsuario, apagaUsuario;
+    private JTextField inputCpf, inputNome, inputTelefone, inputEmail;
     private DefaultTableModel tableModel;
     private JTable table;
-    private List<Usuario> usuarios = new ArrayList<>();
+    private List<Usuario> usuarios;
     private int linhaSelecionada = -1;
     private JScrollPane jSPane;
+    private UsuarioController control;
 
     public UsuariosPanel() {
         super();
+        usuarios = new ArrayList<>();
+       
 
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); // Definindo layout do CarrosPanel
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); // Definindo layout do UsuariosPanel
 
         // --------------------------*
         // Componentes
-        cadastraCliente = new JButton("Cadastrar");
-        apagaCliente = new JButton("Excluir");
-        editaCliente = new JButton("Editar");
-        inputCpf = new JTextField(7);
-        inputNome = new JTextField(4);
-        inputEmail = new JTextField(12);
+        cadastraUsuario = new JButton("Cadastrar");
+        apagaUsuario = new JButton("Excluir");
+        editaUsuario = new JButton("Editar");
+        inputCpf = new JTextField(11); // CPF
+        inputNome = new JTextField(20); // Nome Completo
+        inputTelefone = new JTextField(15); // Telefone
+        inputEmail = new JTextField(20); // Email
 
         // --------------------------*
         JPanel title = new JPanel(new FlowLayout());
-        title.add(new JLabel("Cadastro de Clientes"));
+        title.add(new JLabel("Cadastro de Usuários"));
         add(title);
         // Adicionar os componentes:
-        JPanel inputPanel = new JPanel(new GridLayout(3, 2, 2, 2)); // InputPanel
-        inputPanel.add(new JLabel("Digite o cpf do cliente:"));
+        JPanel inputPanel = new JPanel(new GridLayout(4, 2, 2, 2)); // InputPanel
+        inputPanel.add(new JLabel("Digite o CPF do usuário:"));
         inputPanel.add(inputCpf);
-        inputPanel.add(new JLabel("Digite o nome completo do cliente:"));
+        inputPanel.add(new JLabel("Digite o nome completo do usuário:"));
         inputPanel.add(inputNome);
-        inputPanel.add(new JLabel("Digite a email do cliente:"));
+        inputPanel.add(new JLabel("Digite o telefone do usuário:"));
+        inputPanel.add(inputTelefone);
+        inputPanel.add(new JLabel("Digite o email do usuário:"));
         inputPanel.add(inputEmail);
         add(inputPanel);
 
         // --------------------------*
         buttonPanel = new JPanel(); // Painel de botões
-        buttonPanel.add(cadastraCliente);
-        buttonPanel.add(editaCliente);
-        buttonPanel.add(apagaCliente);
-        add(buttonPanel);// Adicionando o painel De botões a Tela Principal
+        buttonPanel.add(cadastraUsuario);
+        buttonPanel.add(editaUsuario);
+        buttonPanel.add(apagaUsuario);
+        add(buttonPanel); // Adicionando o painel de botões à Tela Principal
 
         // --------------------------*
         jSPane = new JScrollPane(); // Criando um scrollPane
         add(jSPane);
         tableModel = new DefaultTableModel(new Object[][] {},
-                new String[] { "CPF", "Nome Completo", "Idade" });
+                new String[] { "CPF", "Nome Completo", "Telefone", "Email" });
         table = new JTable(tableModel);
         jSPane.setViewportView(table);
         // Cria o banco de dados caso não tenha sido criado
-        new ClientesDAO().criaTabela();
+        new UsuariosDAO().criaTabela();
         // Atualiza a tabela
         atualizarTabela();
 
         // --------------------------*
         // Estilização:
-        apagaCliente.setBackground(new Color(168, 3, 3));
-        apagaCliente.setForeground(new Color(255, 255, 255));
-        cadastraCliente.setBackground(new Color(46, 128, 32));
-        cadastraCliente.setForeground(new Color(255, 255, 255));
-        editaCliente.setBackground(new Color(109, 110, 109));
-        editaCliente.setForeground(new Color(255, 255, 255));
+        apagaUsuario.setBackground(new Color(168, 3, 3));
+        apagaUsuario.setForeground(new Color(255, 255, 255));
+        cadastraUsuario.setBackground(new Color(46, 128, 32));
+        cadastraUsuario.setForeground(new Color(255, 255, 255));
+        editaUsuario.setBackground(new Color(109, 110, 109));
+        editaUsuario.setForeground(new Color(255, 255, 255));
         // --------------------------*
-        // Tratamento de eventos :
+
+        control = new UsuarioController(usuarios, tableModel, table); // Instanciando o controller
+
+
+        // Tratamento de eventos:
 
         table.addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-
                 linhaSelecionada = table.rowAtPoint(e.getPoint());
                 if (linhaSelecionada != -1) {
                     inputCpf.setText((String) table.getValueAt(linhaSelecionada, 0));
                     inputNome.setText((String) table.getValueAt(linhaSelecionada, 1));
-                    inputEmail.setText((String) table.getValueAt(linhaSelecionada, 2));
+                    inputTelefone.setText((String) table.getValueAt(linhaSelecionada, 2));
+                    inputEmail.setText((String) table.getValueAt(linhaSelecionada, 3));
                 }
-
             }
-
         });
 
-        ClientesControl control = new ClientesControl(clientes, tableModel, table); // Objeto da classe carrosControl
-
-        // Cadastrar um cliente:
-        cadastraCliente.addActionListener(e -> {
+        // Cadastrar um usuário:
+        cadastraUsuario.addActionListener(e -> {
             if (!inputCpf.getText().isEmpty() && !inputNome.getText().isEmpty()
-                    && !inputEmail.getText().isEmpty()) {
+                    && !inputTelefone.getText().isEmpty() && !inputEmail.getText().isEmpty()) {
 
-                control.cadastrarCliente(inputCpf.getText(), inputNome.getText(), inputEmail.getText());
+                control.cadastrarUsuario(inputCpf.getText(), inputNome.getText(), inputTelefone.getText(),
+                        inputEmail.getText());
                 // Limpa os campos de entrada após a operação de cadastro
                 inputCpf.setText("");
                 inputNome.setText("");
+                inputTelefone.setText("");
                 inputEmail.setText("");
             } else {
                 JOptionPane.showMessageDialog(inputPanel,
-                        "Preencha os campos corretamente para cadastrar um cliente!!", null,
+                        "Preencha os campos corretamente para cadastrar um usuário!!", null,
                         JOptionPane.WARNING_MESSAGE);
             }
-
         });
-        // --------------------------*
 
-        // Editar um cliente:
-        editaCliente.addActionListener(new ActionListener() {
+        // --------------------------*
+        // Editar um usuário:
+        editaUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int res = JOptionPane.showConfirmDialog(null, "Deseja atualizar as informações deste cliente?",
+                int res = JOptionPane.showConfirmDialog(null, "Deseja atualizar as informações deste usuário?",
                         "Editar", JOptionPane.YES_NO_OPTION);
                 if (res == JOptionPane.YES_OPTION) {
-
-                    // Chama o método "atualizar" do objeto operacoes com os valores dos campos de
-                    // entrada
-                    control.atualizar(inputCpf.getText(), inputNome.getText(), inputEmail.getText());
-
-                    // Limpa os campos de entrada após a operação de atualização
+                    control.atualizar(inputCpf.getText(), inputNome.getText(), inputTelefone.getText(),
+                            inputEmail.getText());
                 }
             }
         });
-        // --------------------------*
 
-        // Apagar um cliente:
-        apagaCliente.addActionListener(new ActionListener() {
+        // --------------------------*
+        // Apagar um usuário:
+        apagaUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int res = JOptionPane.showConfirmDialog(null, "Deseja excluir este cliente?",
+                int res = JOptionPane.showConfirmDialog(null, "Deseja excluir este usuário?",
                         "Excluir", JOptionPane.YES_NO_OPTION);
                 if (res == JOptionPane.YES_OPTION) {
-                    // Chama o método "apagar" do objeto operacoes com o valor do campo de entrada
-                    // "cpf"
                     control.apagar(inputCpf.getText());
                     // Limpa os campos de entrada após a operação de exclusão
                     inputCpf.setText("");
                     inputNome.setText("");
+                    inputTelefone.setText("");
                     inputEmail.setText("");
                 }
-
             }
         });
-
     }
 
     public void atualizarTabela() {
         tableModel.setRowCount(0); // Limpa todas as linhas existentes na tabela
-        usuarios = new ClientesDAO().listarTodos();
-        // Obtém os clientes atualizados do banco de dados
+        usuarios = new UsuariosDAO().listarTodos();
+        // Obtém os usuários atualizados do banco de dados
         for (Usuario usuario : usuarios) {
-            // Adiciona os dados de cada cliente como uma nova linha na tabela Swing
-            tableModel.addRow(new Object[] { cliente.getCpf(), cliente.getNome(), cliente.getIdade() });
+            System.out.println(usuario.getCpf());
+            // Adiciona os dados de cada usuário como uma nova linha na tabela Swing
+            tableModel.addRow(
+                    new Object[] { usuario.getCpf(), usuario.getNome(), usuario.getTelefone(), usuario.getEmail() });
         }
-
     }
 }
