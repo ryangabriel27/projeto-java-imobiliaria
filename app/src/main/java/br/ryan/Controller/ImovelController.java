@@ -24,13 +24,22 @@ public class ImovelController {
         tableModel.setRowCount(0);
         imoveis = new ImovelDAO().listarTodos();
         for (Imovel imovel : imoveis) {
-            tableModel.addRow(new Object[] { imovel.getCidade(), imovel.getEstado(), imovel.getEndereco(), imovel.getValor_aluguel(), imovel.getDescricao(), imovel.getStatus() });
+            tableModel.addRow(
+                    new Object[] { imovel.getCodigo_id(), imovel.getCidade(), imovel.getEstado(), imovel.getEndereco(),
+                            imovel.getValor_aluguel(), imovel.getDescricao(), imovel.getStatus() });
         }
     }
 
-    public void cadastrarImovel(String cidade, String estado, String endereco, double valor_aluguel, String descricao, String status) {
+    // Método para gerar um código aleatório de 5 dígitos
+    private int gerarCodigoId() {
+        return (int) (Math.random() * 90000) + 10000; // Gera um número entre 10000 e 99999
+    }
+
+    public void cadastrarImovel(String cidade, String estado, String endereco, double valor_aluguel, String descricao,
+            String status) {
         try {
             Imovel imovel = new Imovel();
+            imovel.setCodigo_id(String.valueOf(gerarCodigoId()));
             imovel.setCidade(cidade);
             imovel.setEstado(estado);
             imovel.setEndereco(endereco);
@@ -41,27 +50,30 @@ public class ImovelController {
             atualizarTabela();
             JOptionPane.showMessageDialog(null, "Imóvel cadastrado com sucesso!");
         } catch (Exception err) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar imóvel: " + err.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar imóvel: " + err.getMessage(), "Erro",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public void atualizarImovel(Imovel imovel, int id) {
+    public void atualizarImovel(Imovel imovel, String id) {
         try {
             new ImovelDAO().atualizar(imovel, id);
             atualizarTabela();
             JOptionPane.showMessageDialog(null, "Imóvel atualizado com sucesso!");
         } catch (Exception err) {
-            JOptionPane.showMessageDialog(null, "Erro ao atualizar imóvel: " + err.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar imóvel: " + err.getMessage(), "Erro",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public void apagarImovel(int id) {
+    public void apagarImovel(String id) {
         try {
             new ImovelDAO().apagar(id);
             atualizarTabela();
             JOptionPane.showMessageDialog(null, "Imóvel excluído com sucesso!");
         } catch (Exception err) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir imóvel: " + err.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao excluir imóvel: " + err.getMessage(), "Erro",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 }

@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Imovel {
+    private String codigo_id;
     private String cidade;
     private String estado;
     private String endereco;

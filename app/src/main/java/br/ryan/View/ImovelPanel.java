@@ -82,7 +82,7 @@ public class ImovelPanel extends JPanel {
 
         // Tabela de Imóveis
         tableModel = new DefaultTableModel(
-                new String[] { "Cidade", "Estado", "Endereço", "Valor do Aluguel", "Descrição", "Status" }, 0);
+                new String[] { "#", "Cidade", "Estado", "Endereço", "Valor do Aluguel", "Descrição", "Status" }, 0);
         table = new JTable(tableModel);
         jSPane = new JScrollPane(table);
         add(jSPane);
@@ -127,7 +127,8 @@ public class ImovelPanel extends JPanel {
                     imovel.setValor_aluguel(valorAluguel);
                     imovel.setDescricao(descricao);
                     imovel.setStatus(status);
-                    control.atualizarImovel(imovel, linhaSelecionada);
+                    String codigo_id = String.valueOf(tableModel.getValueAt(linhaSelecionada, 0));
+                    control.atualizarImovel(imovel, codigo_id);
                     clearInputs();
                 } else {
                     JOptionPane.showMessageDialog(null, "Selecione um imóvel para editar.");
@@ -140,8 +141,8 @@ public class ImovelPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 linhaSelecionada = table.getSelectedRow();
                 if (linhaSelecionada >= 0) {
-                    int id = (int) tableModel.getValueAt(linhaSelecionada, 0); // Aqui você deve ter o ID do imóvel.
-                    control.apagarImovel(id);
+                    String codigo_id = String.valueOf(tableModel.getValueAt(linhaSelecionada, 0)); // Aqui você deve ter o ID do imóvel.
+                    control.apagarImovel(codigo_id);
                     clearInputs();
                 } else {
                     JOptionPane.showMessageDialog(null, "Selecione um imóvel para excluir.");
@@ -154,12 +155,12 @@ public class ImovelPanel extends JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 linhaSelecionada = table.getSelectedRow();
                 if (linhaSelecionada >= 0) {
-                    inputCidade.setText((String) tableModel.getValueAt(linhaSelecionada, 0));
-                    inputEstado.setText((String) tableModel.getValueAt(linhaSelecionada, 1));
-                    inputEndereco.setText((String) tableModel.getValueAt(linhaSelecionada, 2));
-                    inputValorAluguel.setText(String.valueOf(tableModel.getValueAt(linhaSelecionada, 3)));
-                    inputDescricao.setText((String) tableModel.getValueAt(linhaSelecionada, 4));
-                    inputStatus.setSelectedItem(tableModel.getValueAt(linhaSelecionada, 5));
+                    inputCidade.setText((String) tableModel.getValueAt(linhaSelecionada, 1));
+                    inputEstado.setText((String) tableModel.getValueAt(linhaSelecionada, 2));
+                    inputEndereco.setText((String) tableModel.getValueAt(linhaSelecionada, 3));
+                    inputValorAluguel.setText(String.valueOf(tableModel.getValueAt(linhaSelecionada, 4)));
+                    inputDescricao.setText((String) tableModel.getValueAt(linhaSelecionada, 5));
+                    inputStatus.setSelectedItem(tableModel.getValueAt(linhaSelecionada, 6));
                 }
             }
         });
@@ -181,8 +182,9 @@ public class ImovelPanel extends JPanel {
         // Obtém os usuários atualizados do banco de dados
         for (Imovel imovel : imoveis) {
             // Adiciona os dados de cada usuário como uma nova linha na tabela Swing
-            tableModel.addRow(new Object[] { imovel.getCidade(), imovel.getEstado(), imovel.getEndereco(),
-                    imovel.getValor_aluguel(), imovel.getDescricao(), imovel.getStatus() });
+            tableModel.addRow(
+                    new Object[] { imovel.getCodigo_id(), imovel.getCidade(), imovel.getEstado(), imovel.getEndereco(),
+                            imovel.getValor_aluguel(), imovel.getDescricao(), imovel.getStatus() });
         }
     }
 }

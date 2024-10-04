@@ -1,0 +1,9 @@
+Relatório de Aluguel
+====================
+Cliente: RYAN GABRIEL
+CPF: 12345678910
+Imóvel: Apartamento
+Data de Início: 2024-10-01
+Data de Fim: 2024-11-01
+Valor do Aluguel: 500.0
+====================

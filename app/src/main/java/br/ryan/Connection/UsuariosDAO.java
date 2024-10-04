@@ -125,4 +125,28 @@ public class UsuariosDAO {
             ConnectionFactory.closeConnection(connection, stmt);
         }
     }
+
+    public Usuario buscarPorId(String cpf) {
+        String sql = "SELECT * FROM usuarios_imobiliaria WHERE cpf = ?";
+        Usuario usuario = null;
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, cpf);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    usuario = new Usuario();
+                    usuario.setCpf(cpf);
+                    usuario.setNome(rs.getString("nome"));
+                    usuario.setEmail(rs.getString("email"));
+                    usuario.setTelefone(rs.getString("telefone"));
+                    // Adicione mais campos conforme necessário
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao buscar usuário por ID: " + e.getMessage());
+        }
+
+        return usuario;
+    }
 }

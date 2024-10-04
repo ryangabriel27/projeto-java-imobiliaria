@@ -35,8 +35,8 @@ public class MainFrame extends JFrame {
         JTabbedPane abas = new JTabbedPane();
         abas.add("Imóveis", new ImovelPanel()); // Adiciona o painel de imoveis ao TabbedPane
         abas.add("Clientes", new UsuariosPanel()); // Adiciona o painel de clientes ao TabbedPane
-        // abas.add("Registro de aluguéis", new AluguelPanel()); // Adiciona o painel de
-        // alugueis ao TabbedPane
+        abas.add("Registro de aluguéis", new AluguelPanel()); // Adiciona o painel de alugueis ao TabbedPane
+        abas.add("Gerar relatórios", new RelatorioUsuarioPanel()); // Adiciona o painel de alugueis ao TabbedPane
         mainPanel.add(abas);
 
         JButton sair = new JButton("Voltar para o menu");
