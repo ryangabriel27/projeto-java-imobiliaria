@@ -17,12 +17,6 @@
 
     <dependencies>
 
-        <dependency>
-            <groupId>com.aspose</groupId>
-            <artifactId>aspose-pdf</artifactId>
-            <version>20.11</version>
-        </dependency>
-
 
         <dependency>
             <groupId>org.postgresql</groupId>

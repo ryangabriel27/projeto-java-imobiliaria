@@ -127,7 +127,7 @@ public class RelatorioUsuarioPanel extends JPanel {
 
     private void gerarRelatorio(Aluguel aluguel) {
         // Gera o arquivo com as informações do aluguel
-        try (FileWriter writer = new FileWriter("relatorio_aluguel_" + aluguel.getImovel().getCodigo_id() + ".pdf")) {
+        try (FileWriter writer = new FileWriter("relatorio_aluguel_" + aluguel.getImovel().getCodigo_id() + ".txt")) {
             writer.write("Relatório de Aluguel\n");
             writer.write("====================\n");
             writer.write("Cliente: " + aluguel.getUsuario().getNome() + "\n");
