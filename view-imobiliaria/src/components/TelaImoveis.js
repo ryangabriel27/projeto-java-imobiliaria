@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import '../styles/StyleImoveis.css';
 
 const TelaImoveis = () => {
     const [imoveis, setImoveis] = useState([]);
@@ -41,44 +42,47 @@ const TelaImoveis = () => {
     };
 
     return (
-        <div>
-            <h2>Imóveis Disponíveis</h2>
-            <div>
-                {imoveis.map((imovel) => (
-                    <div key={imovel.codigo_id}>
-                        <h3>{imovel.endereco}</h3>
-                        <p>{imovel.descricao}</p>
-                        <button onClick={() => setImovelSelecionado(imovel.codigo_id)}>
-                            Selecionar
-                        </button>
-                    </div>
-                ))}
-            </div>
+        <div className="container">
+            <h2 className="title">Imóveis Disponíveis</h2>
 
             {imovelSelecionado && (
-                <form onSubmit={handleAluguel}>
-                    <h3>Selecionado: {imovelSelecionado}</h3>
-                    <div>
-                        <label>Data de Início:</label>
+                <form onSubmit={handleAluguel} className="form">
+                    <h3>Alugar Imóvel - Código: {imovelSelecionado}</h3>
+                    <label>
+                        Data de Início:
                         <input
                             type="date"
                             value={dataInicio}
                             onChange={(e) => setDataInicio(e.target.value)}
                             required
                         />
-                    </div>
-                    <div>
-                        <label>Data de Fim:</label>
+                    </label>
+                    <label>
+                        Data de Fim:
                         <input
                             type="date"
                             value={dataFim}
                             onChange={(e) => setDataFim(e.target.value)}
                             required
                         />
-                    </div>
+                    </label>
                     <button type="submit">Solicitar Aluguel</button>
                 </form>
             )}
+
+            <div className="grid">
+                {imoveis.map((imovel) => (
+                    <div key={imovel.codigo_id} className="card">
+                        <h3>Cidade: {imovel.cidade}, {imovel.estado}</h3>
+                        <h4>Endereço: {imovel.endereco}</h4>
+                        <p>Descrição: {imovel.descricao}</p>
+                        <p>Valor Aluguel: R$ {imovel.valor_aluguel}</p>
+                        <button onClick={() => setImovelSelecionado(imovel.codigo_id)} className="button">
+                            Selecionar
+                        </button>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };

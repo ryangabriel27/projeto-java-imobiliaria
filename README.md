@@ -223,17 +223,6 @@ gantt
 ```mermaid
 
 classDiagram
-    class Adm {
-        - int id
-        - string nome
-        - string cpf
-        - string email
-        - string telefone
-        +gerenciarRelatorios()
-        +crudImoveis()
-        +crudUsuarios()
-    }
-
     class Usuarios {
         - int id
         - string nome
