@@ -64,59 +64,17 @@ O sistema será uma uma aplicação voltada para administradoras de imóveis que
 
 
 ## Objetivos
-Desenvolver um sistema de **Gerenciamento Imobiliário**, permitindo que os administradores de propriedades **cadastrarem, editem e excluam** `IMÓVEIS`, `PROPRIETÁRIOS`, `LOCATÁRIOS` e `CONTRATOS DE LOCAÇÃO`, além de gerar **relatórios detalhados** sobre imóveis disponíveis, locações ativas e vencimento de contratos, dentro de um prazo de `4 meses`.
-
-## Objetivos Específicos
-
-- **Desenvolver e Implementar o Sistema de Cadastro de Imóveis, Proprietários, Locatários e Contratos de Locação**
-
-- **Desenvolver Funcionalidades de Relatórios**
-
-- **Criar uma Interface de Usuário Intuitiva e Responsiva**
-
-- **Implementar Sistema de Testes e Garantia de Qualidade**
-
-- **Realizar o Deploy e Lançamento do Sistema**
-### Mensuráveis
-
-- **Cadastro de Imóveis, Proprietários, Locatários e Contratos de Locação**:
-
-- **Geração de Relatórios**
-
-- **Conexão com base de dados**
-
-- **Interface de Usuário**
-
-- **Testes e Qualidade**
-  
-- **Deploy e Documentação**
-
-### Atingíveis
-
-  - Utilizar bibliotecas como **JavaFX** para a interface gráfica e **JDBC** para persistência de dados.
-  - Utilizar bibliotecas confiáveis para geração de relatórios em **PDF**, como **JasperReports**.  
-  - Alocar tempo suficiente para o desenvolvimento das principais funcionalidades e para a realização de testes e correções de bugs.
-  - Garantir que o deploy seja feito de forma eficiente e que o sistema esteja pronto para uso por administradoras de imóveis.
-
-### Relevantes
-
-- `Cadastro e Gerenciamento de Dados`: Essencial para o funcionamento do sistema, permitindo o controle de imóveis, proprietários, locatários e contratos.
-
-- `Geração de Relatórios`: Relatórios claros são fundamentais para a administração das propriedades e o acompanhamento de vencimentos de contratos e aluguéis.
-
-- `Interface de Usuário (UX/UI)`: Crucial para a experiência do usuário, garantindo que o sistema seja fácil de usar e funcione bem em diferentes resoluções.
-
-- `Testes`: Garantem a confiabilidade do sistema e a minimização de erros críticos durante a operação.
-
-- `Deploy`: Importante para garantir que o sistema esteja disponível e operacional para os usuários finais.
+Desenvolver um sistema de **Gerenciamento Imobiliário**, permitindo que os administradores do sistema **cadastrem, editem e excluam** `IMÓVEIS`, `PROPRIETÁRIOS`, `USUÁRIOS` e `CONTRATOS DE LOCAÇÃO(Aluguéis)`, além de gerar **relatórios detalhados** sobre aluguéis, locações ativas e vencimento de contratos, dentro de um prazo de `4 meses`.
 
 
 ### Recuros de Ferramentas
 - VSCode (Desenvolvimento)
 - Postman/Thunderclient (Testes de API)
 - PostgreSQL (Banco de Dados)
-- Java 
 - GitHub (Versionamento)
+- Node.JS (Compilador para a API)
+- Java (Desenvolvimento do sistema principal)
+
 
 ### Análise de Riscos
 `Atrasos e Mudanças nos Requisitos:`
@@ -180,26 +138,7 @@ classDiagram
 
 ### Diagrama de Fluxo
 
-```mermaid
-flowchart TD
-    A[Início] --> B[Tela de Login]
-    B --> C{Usuário já cadastrado?}
-    C -->|Sim| D[Fazer Login]
-    C -->|Não| E[Cadastro]
-    E --> F[Redirecionamento para Página de Login]
-    F --> D
-    D --> G[Página Interna]
-    G --> H{Visualização de todos os Posts}
-    H -->|Ver Post Específico| I[Post]
-    H -->|Ver Próprio Perfil| J[Perfil]
-    I --> K[Comentar no Post]
-    K --> Sair
-    J --> L[Editar/Excluir Posts]
-    J --> M[Editar Informações do Perfil]
-    L --> Sair
-    M --> Sair
-
-```
+<img src="img-doc/_Fluxograma.png" />
 
 
 
