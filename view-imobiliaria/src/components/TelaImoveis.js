@@ -12,8 +12,12 @@ const TelaImoveis = () => {
     const cpf = new URLSearchParams(location.search).get('cpf');
 
 
+    if (!cpf) {
+        console.error('CPF não fornecido na URL.');
+    }
+
     useEffect(() => {
-        fetch('http://localhost:3000/imoveis')
+        fetch('http://localhost:5000/imoveis')
             .then((response) => response.json())
             .then((data) => setImoveis(data))
             .catch((error) => console.error('Erro ao buscar imóveis:', error));
@@ -21,24 +25,29 @@ const TelaImoveis = () => {
 
     const handleAluguel = (e) => {
         e.preventDefault(); // Previne o comportamento padrão do form
-        fetch('http://localhost:3000/alugueis/aluguel', {
+
+        // Verificação antes do envio
+        if (!cpf || !imovelSelecionado) {
+            alert('CPF ou Imóvel não especificado.');
+            return;
+        }
+
+        fetch('http://localhost:5000/alugueis/aluguel', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                cpf,
-                codigo_id: imovelSelecionado,
+                usuario_id: cpf,
+                imovel_id: imovelSelecionado,
                 data_inicio: dataInicio,
                 data_fim: dataFim
             }),
-        })
-            .then((response) => response.json())
-            .then(() => {
-                // Incluindo as datas na URL de redirecionamento
-                navigate(`/resumo?cpf=${cpf}&imovel=${imovelSelecionado}&data_inicio=${dataInicio}&data_fim=${dataFim}`);
-            })
-            .catch((error) => console.error('Erro ao solicitar aluguel:', error));
+        }).then((response) => {
+            console.log(response.json());
+        }).then(() => {
+            navigate(`/resumo?cpf=${cpf}&imovel=${imovelSelecionado}&data_inicio=${dataInicio}&data_fim=${dataFim}`);
+        }).catch((error) => console.error('Erro ao solicitar aluguel:', error));
     };
 
     return (

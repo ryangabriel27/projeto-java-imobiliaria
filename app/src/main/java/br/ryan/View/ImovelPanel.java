@@ -52,6 +52,14 @@ public class ImovelPanel extends JPanel {
         inputDescricao = new JTextField(30);
         inputStatus = new JComboBox<>(new String[] { "DISPONIVEL", "ALUGADO" });
 
+        // Estilização
+        cadastraImovel.setBackground(new Color(50, 32, 120));
+        cadastraImovel.setForeground(Color.white);
+        apagaImovel.setBackground(new Color(126, 26, 26));
+        apagaImovel.setForeground(Color.white);
+        editaImovel.setBackground(new Color(50, 32, 120));
+        editaImovel.setForeground(Color.white);
+
         // Título
         JPanel title = new JPanel(new FlowLayout());
         title.add(new JLabel("Cadastro de Imóveis"));
@@ -89,7 +97,6 @@ public class ImovelPanel extends JPanel {
         // Cria o banco de dados caso não tenha sido criado
         new ImovelDAO().criaTabela();
         atualizarTabela();
-
         // -------------------
         ImovelController control = new ImovelController(imoveis, tableModel, table);
 
@@ -97,15 +104,24 @@ public class ImovelPanel extends JPanel {
         cadastraImovel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String cidade = inputCidade.getText();
-                String estado = inputEstado.getText();
-                String endereco = inputEndereco.getText();
-                double valorAluguel = Double.parseDouble(inputValorAluguel.getText());
-                String descricao = inputDescricao.getText();
-                String status = String.valueOf(inputStatus.getSelectedItem());
-                control.cadastrarImovel(cidade, estado, endereco, valorAluguel,
-                        descricao, status);
-                clearInputs();
+                try {
+                    String cidade = inputCidade.getText();
+                    String estado = inputEstado.getText();
+                    String endereco = inputEndereco.getText();
+                    double valorAluguel = Double.parseDouble(inputValorAluguel.getText());
+                    String descricao = inputDescricao.getText();
+                    String status = String.valueOf(inputStatus.getSelectedItem());
+                    control.cadastrarImovel(cidade, estado, endereco, valorAluguel,
+                            descricao, status);
+                    clearInputs();
+                } catch (Exception err) {
+                    // TODO: handle exception
+                    System.out.println(err.getMessage());
+                    JOptionPane.showMessageDialog(null, "Preencha os campos corretamente e tente mais uma vez..",
+                            "ERRO", JOptionPane.ERROR_MESSAGE);
+
+                }
+
             }
         });
 
@@ -141,7 +157,8 @@ public class ImovelPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 linhaSelecionada = table.getSelectedRow();
                 if (linhaSelecionada >= 0) {
-                    String codigo_id = String.valueOf(tableModel.getValueAt(linhaSelecionada, 0)); // Aqui você deve ter o ID do imóvel.
+                    String codigo_id = String.valueOf(tableModel.getValueAt(linhaSelecionada, 0)); // Aqui você deve ter
+                                                                                                   // o ID do imóvel.
                     control.apagarImovel(codigo_id);
                     clearInputs();
                 } else {

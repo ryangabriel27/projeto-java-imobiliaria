@@ -38,14 +38,11 @@ public class MainFrame extends JFrame {
         abas.add("Registro de aluguéis", new AluguelPanel()); // Adiciona o painel de alugueis ao TabbedPane
         abas.add("Gerar relatórios", new RelatorioUsuarioPanel()); // Adiciona o painel de alugueis ao TabbedPane
         mainPanel.add(abas);
-
-        JButton sair = new JButton("Voltar para o menu");
-        mainPanel.add(sair);
         // ---------------------*
         /*
          * Estilização:
          */
-        abas.setBackground(new Color(186, 95, 4));
+        abas.setBackground(new Color(50, 32, 120));
         abas.setForeground(Color.WHITE);
         // ---------------------*
         addWindowListener(new WindowAdapter() {
@@ -53,11 +50,10 @@ public class MainFrame extends JFrame {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 int res = JOptionPane.showConfirmDialog(null,
-                        "Ao sair, você será redirecionado ao menu. Deseja realmente sair?",
-                        "Mercado", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                        "Deseja realmente sair?",
+                        "Gerenciamento", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
                 if (res == JOptionPane.YES_OPTION) {
                     setDefaultCloseOperation(2);
-                    // new Menu().run();
                 }
             } // Questiona o usuário se realmente ele deseja fechar a aplicação
 

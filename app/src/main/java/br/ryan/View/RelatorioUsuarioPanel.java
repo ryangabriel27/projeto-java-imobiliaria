@@ -1,6 +1,7 @@
 package br.ryan.View;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
+import br.ryan.GerarRelatorioPDF;
 import br.ryan.Connection.AluguelDAO;
 import br.ryan.Model.Aluguel;
 
@@ -60,6 +63,10 @@ public class RelatorioUsuarioPanel extends JPanel {
 
         // Botão de buscar
         btnBuscar = new JButton("Buscar");
+        btnBuscar.setBackground(new Color(50, 32, 120));
+        btnBuscar.setForeground(Color.WHITE);
+
+
         gbc.gridx = 0; // Posição coluna 0
         gbc.gridy = 1; // Próxima linha
         gbc.gridwidth = 2; // O botão ocupará duas colunas
@@ -125,24 +132,9 @@ public class RelatorioUsuarioPanel extends JPanel {
         }
     }
 
-    private void gerarRelatorio(Aluguel aluguel) {
-        // Gera o arquivo com as informações do aluguel
-        try (FileWriter writer = new FileWriter("relatorio_aluguel_" + aluguel.getImovel().getCodigo_id() + ".txt")) {
-            writer.write("Relatório de Aluguel\n");
-            writer.write("====================\n");
-            writer.write("Cliente: " + aluguel.getUsuario().getNome() + "\n");
-            writer.write("CPF: " + aluguel.getUsuario().getCpf() + "\n");
-            writer.write("Telefone: " + aluguel.getUsuario().getTelefone() + "\n");
-            writer.write("Imóvel: " + aluguel.getImovel().getDescricao() + "\n");
-            writer.write("Data de Início: " + aluguel.getData_inicio() + "\n");
-            writer.write("Data de Fim: " + aluguel.getData_fim() + "\n");
-            writer.write("Valor do Aluguel: " + aluguel.getImovel().getValor_aluguel() + "\n");
-            writer.write("====================\n");
-            JOptionPane.showMessageDialog(null, "Relatório gerado com sucesso!");
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório", "Erro", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
-        }
+    private void gerarRelatorio(Aluguel aluguel) { // Gera relatório PDF para o usuário
+        GerarRelatorioPDF gerarPdf = new GerarRelatorioPDF();
+        gerarPdf.gerarRelatorioPDF(aluguel);
     }
 
     // Renderizador personalizado para o botão
@@ -159,7 +151,7 @@ public class RelatorioUsuarioPanel extends JPanel {
     }
 
     // Editor personalizado para o botão
-    class ButtonEditor extends javax.swing.AbstractCellEditor implements TableCellEditor, ActionListener {
+    class ButtonEditor extends AbstractCellEditor implements TableCellEditor, ActionListener {
         private JButton button;
         private int row;
 

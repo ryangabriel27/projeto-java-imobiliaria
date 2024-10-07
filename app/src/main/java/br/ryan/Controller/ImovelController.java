@@ -37,6 +37,10 @@ public class ImovelController {
 
     public void cadastrarImovel(String cidade, String estado, String endereco, double valor_aluguel, String descricao,
             String status) {
+        if (cidade.isEmpty() || estado.isEmpty() || endereco.isEmpty() || String.valueOf(valor_aluguel).isEmpty()
+                || valor_aluguel <= 0 || descricao.isEmpty() || status.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos corretamente!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
         try {
             Imovel imovel = new Imovel();
             imovel.setCodigo_id(String.valueOf(gerarCodigoId()));

@@ -9,7 +9,7 @@ const TelaInicial = () => {
   const handleCpfSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:3000/usuarios/verificar-cpf/${cpf}`)
+    fetch(`http://localhost:5000/usuarios/verificar-cpf/${cpf}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("CPF não encontrado");

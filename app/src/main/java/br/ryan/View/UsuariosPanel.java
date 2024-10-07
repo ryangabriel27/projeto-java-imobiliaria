@@ -18,10 +18,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.AbstractCellEditor;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 
 import br.ryan.Connection.UsuariosDAO;
 import br.ryan.Controller.UsuarioController;
+import br.ryan.Model.Aluguel;
 import br.ryan.Model.Usuario;
+import br.ryan.View.RelatorioUsuarioPanel.ButtonEditor;
+import br.ryan.View.RelatorioUsuarioPanel.ButtonRenderer;
 
 public class UsuariosPanel extends JPanel {
     // Componentes
@@ -38,7 +44,6 @@ public class UsuariosPanel extends JPanel {
     public UsuariosPanel() {
         super();
         usuarios = new ArrayList<>();
-       
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); // Definindo layout do UsuariosPanel
 
@@ -79,26 +84,30 @@ public class UsuariosPanel extends JPanel {
         jSPane = new JScrollPane(); // Criando um scrollPane
         add(jSPane);
         tableModel = new DefaultTableModel(new Object[][] {},
-                new String[] { "CPF", "Nome Completo", "Telefone", "Email" });
+                new String[] { "CPF", "Nome Completo", "Telefone", "Email", "Ação" });
         table = new JTable(tableModel);
         jSPane.setViewportView(table);
         // Cria o banco de dados caso não tenha sido criado
         new UsuariosDAO().criaTabela();
         // Atualiza a tabela
+
+        // Define o renderizador e editor de célula para a coluna de ações
+        table.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
+        table.getColumnModel().getColumn(4).setCellEditor(new ButtonEditor(new JButton("Ver detalhes")));
+
         atualizarTabela();
 
         // --------------------------*
         // Estilização:
         apagaUsuario.setBackground(new Color(168, 3, 3));
         apagaUsuario.setForeground(new Color(255, 255, 255));
-        cadastraUsuario.setBackground(new Color(46, 128, 32));
+        cadastraUsuario.setBackground(new Color(50, 32, 120));
         cadastraUsuario.setForeground(new Color(255, 255, 255));
-        editaUsuario.setBackground(new Color(109, 110, 109));
+        editaUsuario.setBackground(new Color(50, 32, 120));
         editaUsuario.setForeground(new Color(255, 255, 255));
         // --------------------------*
 
         control = new UsuarioController(usuarios, tableModel, table); // Instanciando o controller
-
 
         // Tratamento de eventos:
 
@@ -178,5 +187,53 @@ public class UsuariosPanel extends JPanel {
             tableModel.addRow(
                     new Object[] { usuario.getCpf(), usuario.getNome(), usuario.getTelefone(), usuario.getEmail() });
         }
+    }
+
+    // Renderizador personalizado para o botão
+    class ButtonRenderer extends JButton implements TableCellRenderer {
+        public ButtonRenderer() {
+            setText("Ver detalhes");
+        }
+
+        @Override
+        public java.awt.Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int column) {
+            return this;
+        }
+    }
+
+    // Editor personalizado para o botão
+    class ButtonEditor extends AbstractCellEditor implements TableCellEditor, ActionListener {
+        private JButton button;
+        private int row;
+
+        public ButtonEditor(JButton button) {
+            this.button = button;
+            this.button.addActionListener(this);
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return button.getText();
+        }
+
+        @Override
+        public java.awt.Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
+                int column) {
+            this.row = row;
+            return button;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Usuario usuario = usuarios.get(row); // Obtém o aluguel correspondente à linha
+            abrirFrameDeSumario(usuario);
+            fireEditingStopped(); // Para de editar a célula
+        }
+    }
+
+    // Método para abrir o frame de sumário
+    private void abrirFrameDeSumario(Usuario usuario) {
+        new SumarioUsuarioFrame(usuario).setVisible(true);
     }
 }
