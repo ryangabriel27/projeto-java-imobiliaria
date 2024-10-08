@@ -78,14 +78,14 @@
 - ### 3. Funcionalidades
     - #### Aplicação JAVA (Gerenciamento):
         - #### A aplicação tem 4 telas principais: Gerenciamento de Imóveis, Gerenciamento de Clientes/Usuários, Registro de Aluguéis e Gerar Relatórios.
-
         - #### 3.1 - Gerenciamento de Imóveis
-            <img src="../img-doc/TelaImoveis.png">
+            - <img src="../img-doc/TelaImoveis.png">
             - ##### Nessa aba é possível realizar o cadastro, edição e exclusão de imóveis.
             - ##### Para cadastrar é simples basta preencher adequadamente os campos informados e clicar no botão 'CADASTRAR'
             - ##### Para realizar as edições e exclusões basta selecionar o item presente na tabela abaixo, assim que selecionado suas informações serão colocadas nos campos e ali podem ser alterados.
             - #### Exemplo:
-                - ##### <img src="../img-doc/EditExemploImoveis.png"> Selecionando o imóvel desejado
+                - ##### <img src="../img-doc/EditExemploImoveis.png">
+                - ##### Selecionando o imóvel desejado
                 - ##### <img src="../img-doc/EditExemploImoveis2.png"> Alterando o campo desejado e clicando em 'EDITAR'
                 - ##### <img src="../img-doc/EditExemploImoveis3.png"> Imóvel atualizado listado na tabela.
                 
