@@ -50,6 +50,9 @@ public class SumarioUsuarioFrame extends JFrame {
         List<Aluguel> alugueisByUser = new AluguelDAO().buscarPorUsuario(usuario.getCpf());
         double somaGasto = 0;
         for (Aluguel aluguel : alugueisByUser) {
+            if (aluguel.getImovel() == null) { // caso imóvel for vazio pula
+                break;
+            }
             somaGasto += aluguel.getImovel().getValor_aluguel();
         }
         return somaGasto;

@@ -119,6 +119,9 @@ public class RelatorioUsuarioPanel extends JPanel {
                     JOptionPane.INFORMATION_MESSAGE);
             // Preenche a tabela com os resultados
             for (Aluguel aluguel : alugueis) {
+                if (aluguel.getImovel() == null) { // caso imóvel for vazio pula
+                    break;
+                }
                 Object[] rowData = {
                         aluguel.getImovel().getCodigo_id(),
                         aluguel.getImovel().getDescricao(),
