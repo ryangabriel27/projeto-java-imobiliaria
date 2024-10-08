@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import "../styles/StyleInicial.css";
 
 const TelaInicial = () => {
   const [cpf, setCpf] = useState('');
@@ -26,8 +27,8 @@ const TelaInicial = () => {
   };
 
   return (
-    <div>
-      <h2>Bem-vindo ao Sistema de Aluguel de Imóveis</h2>
+    <div className='container-init'>
+      <h2>Bem-vindo a Imobiliaria</h2>
       <form onSubmit={handleCpfSubmit}>
         <label htmlFor="cpf">Digite seu CPF:</label>
         <input
@@ -39,7 +40,7 @@ const TelaInicial = () => {
         />
         <button type="submit">Entrar</button>
       </form>
-      {erro && <p style={{ color: 'red' }}>{erro}</p>}
+      {erro && <p className='error' style={{ color: 'red' }}>{erro}</p>}
     </div>
   );
 };

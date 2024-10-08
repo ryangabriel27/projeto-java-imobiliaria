@@ -1,5 +1,7 @@
 #  Gerenciamento de aluguel de imóveis
 
+#### [Manual do usuário](https://github.com/ryangabriel27/projeto-java-imobiliaria/blob/main/documentacao/manual_do_usuario.md)
+
 ## Escopo do Sistema
 
 O sistema será uma uma aplicação voltada para administradoras de imóveis que gerenciam diversas propriedades.O sistema permitirá o **cadastro** de `IMÓVEIS`, `USUÁRIOS` e `CONTRATOS DE LOCAÇÃO`, além de **fornecer relatórios** detalhados sobre imóveis disponíveis, locações ativas e vencimento de contratos e aluguéis. A aplicação visa simplificar o processo de gerenciamento imobiliário, oferecendo uma **interface gráfica intuitiva** e funcionalidades que garantem o controle eficiente sobre os dados cadastrados.

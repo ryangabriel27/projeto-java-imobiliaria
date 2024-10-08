@@ -7,16 +7,16 @@ const TelaImoveis = () => {
     const [imovelSelecionado, setImovelSelecionado] = useState(null);
     const [dataInicio, setDataInicio] = useState('');
     const [dataFim, setDataFim] = useState('');
+    const [mensagem, setMensagem] = useState(''); // Estado para mensagens de sucesso/erro
     const navigate = useNavigate();
     const location = useLocation();
     const cpf = new URLSearchParams(location.search).get('cpf');
-
 
     if (!cpf) {
         console.error('CPF não fornecido na URL.');
     }
 
-    // Requisição a API para listar e armazenar os imoveis cadastrados no banco
+    // Requisição à API para listar e armazenar os imóveis cadastrados no banco
     useEffect(() => {
         fetch('http://localhost:5000/imoveis')
             .then((response) => response.json())
@@ -29,7 +29,7 @@ const TelaImoveis = () => {
 
         // Verificação antes do envio
         if (!cpf || !imovelSelecionado) {
-            alert('CPF ou Imóvel não especificado.');
+            setMensagem('CPF ou imóvel não especificado.');
             return;
         }
 
@@ -43,18 +43,41 @@ const TelaImoveis = () => {
                 usuario_id: cpf,
                 imovel_id: imovelSelecionado,
                 data_inicio: dataInicio,
-                data_fim: dataFim
+                data_fim: dataFim,
             }),
-        }).then((response) => {
-            console.log(response.json());
-        }).then(() => {
-            navigate(`/resumo?cpf=${cpf}&imovel=${imovelSelecionado}&data_inicio=${dataInicio}&data_fim=${dataFim}`);
-        }).catch((error) => console.error('Erro ao solicitar aluguel:', error));
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Erro ao solicitar aluguel.');
+                }
+                return response.json();
+            })
+            .then(() => {
+                setMensagem('Aluguel solicitado com sucesso!'); // Mensagem de sucesso
+                setImovelSelecionado(null); // Reseta o imóvel selecionado após o sucesso
+                setDataInicio('');
+                setDataFim('');
+            })
+            .catch((error) => {
+                setMensagem(error.message); // Mensagem de erro
+            });
+    };
+
+    const handleLogout = () => {
+        navigate('/'); // Redireciona para a tela de login
     };
 
     return (
         <div className="container">
             <h2 className="title">Imóveis Disponíveis</h2>
+
+            {/* Botão de Logout */}
+            <button onClick={handleLogout} className="logout-button">
+                Logout
+            </button>
+
+            {/* Exibe mensagem de sucesso ou erro */}
+            {mensagem && <p className="mensagem">{mensagem}</p>}
 
             {imovelSelecionado && (
                 <form onSubmit={handleAluguel} className="form">
@@ -97,6 +120,5 @@ const TelaImoveis = () => {
         </div>
     );
 };
-
 
 export default TelaImoveis;
