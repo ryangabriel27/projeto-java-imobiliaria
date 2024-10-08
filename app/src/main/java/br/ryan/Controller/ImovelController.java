@@ -45,7 +45,7 @@ public class ImovelController {
         }
         try {
             Imovel imovel = new Imovel();
-            imovel.setCodigo_id(String.valueOf(gerarCodigoId()));
+            imovel.setCodigo_id(String.valueOf(gerarCodigoId())); // Insere o código gerado automaticamente
             imovel.setCidade(cidade);
             imovel.setEstado(estado);
             imovel.setEndereco(endereco);

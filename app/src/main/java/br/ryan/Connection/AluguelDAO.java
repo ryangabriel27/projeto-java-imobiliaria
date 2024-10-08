@@ -58,7 +58,7 @@ public class AluguelDAO {
     // Método para listar todos os alugueis
     public List<Aluguel> listarTodos() {
         alugueis = new ArrayList<>();
-        String sql = "SELECT * FROM alugueis";
+        String sql = "SELECT * FROM alugueis ORDER BY data_inicio";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
@@ -87,7 +87,7 @@ public class AluguelDAO {
     // Método para buscar aluguel por ID do usuário
     public List<Aluguel> buscarPorUsuario(String usuarioId) {
         List<Aluguel> alugueis = new ArrayList<>();
-        String sql = "SELECT * FROM alugueis WHERE usuario_id = ?";
+        String sql = "SELECT * FROM alugueis WHERE usuario_id = ? ORDER BY data_inicio";
 
         try (Connection conn = ConnectionFactory.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, usuarioId);

@@ -62,7 +62,7 @@ public class ImovelPanel extends JPanel {
 
         // Título
         JPanel title = new JPanel(new FlowLayout());
-        title.add(new JLabel("Cadastro de Imóveis"));
+        title.add(new JLabel("Cadastro de Imoveis"));
         add(title);
 
         // Painel de Entrada
