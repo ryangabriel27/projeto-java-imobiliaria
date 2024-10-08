@@ -1,8 +1,8 @@
-#  Gerenciamento de aluguel de imóveis
+# Gerenciamento de aluguel de imóveis
 
-#### [Manual do usuário](https://github.com/ryangabriel27/projeto-java-imobiliaria/blob/main/documentacao/manual_do_usuario.md)
+#### [📝Manual do usuário](https://github.com/ryangabriel27/projeto-java-imobiliaria/blob/main/documentacao/manual_do_usuario.md)
 
-## Escopo do Sistema
+## 🔨 Escopo do Sistema 
 
 O sistema será uma uma aplicação voltada para administradoras de imóveis que gerenciam diversas propriedades.O sistema permitirá o **cadastro** de `IMÓVEIS`, `USUÁRIOS` e `CONTRATOS DE LOCAÇÃO`, além de **fornecer relatórios** detalhados sobre imóveis disponíveis, locações ativas e vencimento de contratos e aluguéis. A aplicação visa simplificar o processo de gerenciamento imobiliário, oferecendo uma **interface gráfica intuitiva** e funcionalidades que garantem o controle eficiente sobre os dados cadastrados.
 
@@ -65,11 +65,11 @@ O sistema será uma uma aplicação voltada para administradoras de imóveis que
     - Datas de início e fim da locação.
 
 
-## Objetivos
+## 💡 Objetivos 
 Desenvolver um sistema de **Gerenciamento Imobiliário**, permitindo que os administradores do sistema **cadastrem, editem e excluam** `IMÓVEIS`, `PROPRIETÁRIOS`, `USUÁRIOS` e `CONTRATOS DE LOCAÇÃO(Aluguéis)`, além de gerar **relatórios detalhados** sobre aluguéis, locações ativas e vencimento de contratos, dentro de um prazo de `4 meses`.
 
 
-### Recuros de Ferramentas
+### 🛠 Recuros de Ferramentas
 - VSCode (Desenvolvimento)
 - Postman/Thunderclient (Testes de API)
 - PostgreSQL (Banco de Dados)
@@ -92,9 +92,9 @@ Desenvolver um sistema de **Gerenciamento Imobiliário**, permitindo que os admi
 `Problemas de Desempenho e Escalabilidade:`
 - Testes de desempenho e otimização de recursos.
 
-## Diagramas
+## 📊 Diagramas
 
-### Diagrama de Classe 
+- ### Diagrama de Classe 
 
 ```mermaid
 
@@ -135,10 +135,10 @@ classDiagram
 
 ```
 
-### Diagrama de Uso
+- ### Diagrama de Uso
 <img src="img-doc/Diagrama de caso de uso.png"/>
 
-### Diagrama de Fluxo
+- ### Diagrama de Fluxo
 
 <img src="img-doc/_Fluxograma.png" />
 
