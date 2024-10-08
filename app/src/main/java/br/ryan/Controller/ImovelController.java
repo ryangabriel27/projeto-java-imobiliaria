@@ -36,10 +36,12 @@ public class ImovelController {
     }
 
     public void cadastrarImovel(String cidade, String estado, String endereco, double valor_aluguel, String descricao,
-            String status) {
+            String status) throws Exception {
         if (cidade.isEmpty() || estado.isEmpty() || endereco.isEmpty() || String.valueOf(valor_aluguel).isEmpty()
                 || valor_aluguel <= 0 || descricao.isEmpty() || status.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Preencha todos os campos corretamente!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos corretamente!", "ERRO",
+                    JOptionPane.ERROR_MESSAGE);
+            throw new Exception("Dados inválidos!");
         }
         try {
             Imovel imovel = new Imovel();

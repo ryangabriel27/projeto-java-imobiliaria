@@ -106,9 +106,9 @@
             - ##### Para procurar basta colocar os números de CPF do usuário e, caso encontrado, será listado seus alugueis logo abaixo. Para gerar o relatório basta clicar no botão anexado a linha da tabela, os arquivos são salvos no diretório `relatórios` localizado na raiz do projeto, o arquivo tem com o código id do imóvel em seu titulo
             - ### IMPORTANTE
                 - #### Para configurar corretamente o diretório, procure a classe `GerarRelatorioPDF.java`
-                - <img src="../img-doc/GerarRelatorios5.png">
-                - #### Procure pela linha 83 e coloque o diretório correto
                 - <img src="../img-doc/GerarRelatorios6.png">
+                - #### Procure pela linha 83 e coloque o diretório correto
+                - <img src="../img-doc/GerarRelatorios5.png">
                 - #### Dica:
                 - #### Utilize a função do VSCode para copiar o caminho do diretório e substitua no código
                 - <img src="../img-doc/GerarRelatorios7.png">
