@@ -9,7 +9,8 @@ const TelaInicial = () => {
   const handleCpfSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:5000/usuarios/verificar-cpf/${cpf}`)
+    // Faz requisição a API para verificar se o usuário EXISTE
+    fetch(`http://localhost:5000/usuarios/verificar-cpf/${cpf}`) 
       .then((response) => {
         if (!response.ok) {
           throw new Error("CPF não encontrado");

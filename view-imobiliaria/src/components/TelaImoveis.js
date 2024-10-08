@@ -16,6 +16,7 @@ const TelaImoveis = () => {
         console.error('CPF não fornecido na URL.');
     }
 
+    // Requisição a API para listar e armazenar os imoveis cadastrados no banco
     useEffect(() => {
         fetch('http://localhost:5000/imoveis')
             .then((response) => response.json())
@@ -32,6 +33,7 @@ const TelaImoveis = () => {
             return;
         }
 
+        // Requisição POST para cadastrar um aluguel no banco de dados
         fetch('http://localhost:5000/alugueis/aluguel', {
             method: 'POST',
             headers: {
