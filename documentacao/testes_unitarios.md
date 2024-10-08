@@ -1,5 +1,7 @@
 # Documento de Teste Unitarios
-
+- ## Testes Unitários utilizando Mockito e JUnit:
+    - ### [TesteImovelController](../app/target/surefire-reports/TestImovelService.txt)
+    - ### [TesteImovelController](../app/target/surefire-reports/TestUsuarioService.txt)
 - ## Testes API:
     - #### Listar todos imóveis DISPONIVEIS 
         - <img src="../img-doc/TesteAPIImoveis.png">

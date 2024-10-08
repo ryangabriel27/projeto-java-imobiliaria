@@ -1,6 +1,7 @@
 # Gerenciamento de aluguel de imóveis
 
 #### [📝Manual do usuário](https://github.com/ryangabriel27/projeto-java-imobiliaria/blob/main/documentacao/manual_do_usuario.md)
+#### [📝Relatórios de testes unitários](https://github.com/ryangabriel27/projeto-java-imobiliaria/blob/main/documentacao/testes_unitarios.md)
 
 ## 🔨 Escopo do Sistema 
 
