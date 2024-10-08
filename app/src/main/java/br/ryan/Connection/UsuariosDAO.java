@@ -126,6 +126,7 @@ public class UsuariosDAO {
         }
     }
 
+    // Busca usuário por Id
     public Usuario buscarPorId(String cpf) {
         String sql = "SELECT * FROM usuarios_imobiliaria WHERE cpf = ?";
         Usuario usuario = null;

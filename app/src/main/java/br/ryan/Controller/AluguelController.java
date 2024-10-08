@@ -39,6 +39,7 @@ private List<Aluguel> alugueis;
         }
     }
 
+    // Método para realizar aluguel (não está sendo utilizado)
     public void realizarAluguel(String imovelCodigoId, String usuarioCpf, Date dataInicio, Date dataFim) {
         try {
             Imovel imovel = new ImovelDAO().buscarPorCodigoId(imovelCodigoId);
