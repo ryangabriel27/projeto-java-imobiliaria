@@ -81,7 +81,7 @@ public class GerarRelatorioPDF {
             // Finaliza a escrita e fecha o fluxo de conteúdo
             contentStream.close();
             // Definindo o diretório para salvar os realtórios
-            String diretorio = "C:\\Users\\Ryan\\Desktop\\Programas\\projeto-java-imobiliaria\\relatorios";
+            String diretorio = "C:\\Users\\V12 Informatica\\Desktop\\Programas\\projeto-java-imobiliaria\\relatorios";
             // Salva o documento PDF no arquivo
             String nomeArquivo = diretorio + "\\relatorio_aluguel_" + aluguel.getImovel().getCodigo_id() + ".pdf";
             document.save(nomeArquivo);

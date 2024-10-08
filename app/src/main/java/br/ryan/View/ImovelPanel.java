@@ -131,28 +131,40 @@ public class ImovelPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 linhaSelecionada = table.getSelectedRow();
                 if (linhaSelecionada >= 0) {
+
                     int res = JOptionPane.showConfirmDialog(null, "Deseja editar este imóvel?",
                             "Excluir", JOptionPane.YES_NO_OPTION);
                     if (res == JOptionPane.YES_OPTION) {
-                        String cidade = inputCidade.getText();
-                        String estado = inputEstado.getText();
-                        String endereco = inputEndereco.getText();
-                        double valorAluguel = Double.parseDouble(inputValorAluguel.getText());
-                        String descricao = inputDescricao.getText();
-                        String status = String.valueOf(inputStatus.getSelectedItem());
-                        // =========================
-                        // Criando objeto e definindo valores
-                        Imovel imovel = new Imovel();
-                        imovel.setCidade(cidade);
-                        imovel.setEstado(estado);
-                        imovel.setEndereco(endereco);
-                        imovel.setValor_aluguel(valorAluguel);
-                        imovel.setDescricao(descricao);
-                        imovel.setStatus(status);
-                        String codigo_id = String.valueOf(tableModel.getValueAt(linhaSelecionada, 0));
+                        try {
+                            String cidade = inputCidade.getText();
+                            String estado = inputEstado.getText();
+                            String endereco = inputEndereco.getText();
+                            double valorAluguel = Double.parseDouble(inputValorAluguel.getText());
+                            String descricao = inputDescricao.getText();
+                            String status = String.valueOf(inputStatus.getSelectedItem());
+                            if (cidade.isEmpty() || estado.isEmpty() || endereco.isEmpty() 
+                            || valorAluguel <= 0 || descricao.isEmpty() || status.isEmpty() ) {
+                                throw new Exception("Campos devem ser preenchidos");
+                            }
+                            // =========================
+                            // Criando objeto e definindo valores
+                            Imovel imovel = new Imovel();
+                            imovel.setCidade(cidade);
+                            imovel.setEstado(estado);
+                            imovel.setEndereco(endereco);
+                            imovel.setValor_aluguel(valorAluguel);
+                            imovel.setDescricao(descricao);
+                            imovel.setStatus(status);
+                            String codigo_id = String.valueOf(tableModel.getValueAt(linhaSelecionada, 0));
 
-                        control.atualizarImovel(imovel, codigo_id);
-                        clearInputs();
+                            control.atualizarImovel(imovel, codigo_id);
+                            clearInputs();
+                        } catch (Exception err) {
+                            err.printStackTrace();
+                            JOptionPane.showMessageDialog(null, "Erro ao editar, digite valores válidos", "ERRO",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+
                     }
 
                 } else {
@@ -166,7 +178,7 @@ public class ImovelPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 linhaSelecionada = table.getSelectedRow();
                 if (linhaSelecionada >= 0) {
-                    int res = JOptionPane.showConfirmDialog(null, "Deseja excluir este usuário?",
+                    int res = JOptionPane.showConfirmDialog(null, "Deseja excluir este imóvel?",
                             "Excluir", JOptionPane.YES_NO_OPTION);
                     if (res == JOptionPane.YES_OPTION) {
                         String codigo_id = String.valueOf(tableModel.getValueAt(linhaSelecionada, 0)); // Aqui você deve
