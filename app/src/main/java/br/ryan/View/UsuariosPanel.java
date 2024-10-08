@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.AbstractCellEditor;
 import javax.swing.table.TableCellEditor;
@@ -132,11 +133,9 @@ public class UsuariosPanel extends JPanel {
 
                 control.cadastrarUsuario(inputCpf.getText(), inputNome.getText(), inputTelefone.getText(),
                         inputEmail.getText());
+                atualizarTabela();
                 // Limpa os campos de entrada após a operação de cadastro
-                inputCpf.setText("");
-                inputNome.setText("");
-                inputTelefone.setText("");
-                inputEmail.setText("");
+                clearInputs();
             } else {
                 JOptionPane.showMessageDialog(inputPanel,
                         "Preencha os campos corretamente para cadastrar um usuário!!", null,
@@ -154,6 +153,7 @@ public class UsuariosPanel extends JPanel {
                 if (res == JOptionPane.YES_OPTION) {
                     control.atualizar(inputCpf.getText(), inputNome.getText(), inputTelefone.getText(),
                             inputEmail.getText());
+                            clearInputs();
                 }
             }
         });
@@ -168,13 +168,17 @@ public class UsuariosPanel extends JPanel {
                 if (res == JOptionPane.YES_OPTION) {
                     control.apagar(inputCpf.getText());
                     // Limpa os campos de entrada após a operação de exclusão
-                    inputCpf.setText("");
-                    inputNome.setText("");
-                    inputTelefone.setText("");
-                    inputEmail.setText("");
+                    clearInputs();
                 }
             }
         });
+    }
+
+    public void clearInputs() {
+        inputCpf.setText("");
+        inputNome.setText("");
+        inputTelefone.setText("");
+        inputEmail.setText("");
     }
 
     public void atualizarTabela() {
@@ -234,6 +238,14 @@ public class UsuariosPanel extends JPanel {
 
     // Método para abrir o frame de sumário
     private void abrirFrameDeSumario(Usuario usuario) {
-        new SumarioUsuarioFrame(usuario).setVisible(true);
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                new SumarioUsuarioFrame(usuario).setVisible(true);
+            }
+
+        });
+
     }
 }
