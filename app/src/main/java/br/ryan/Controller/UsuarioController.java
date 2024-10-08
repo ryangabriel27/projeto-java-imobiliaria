@@ -40,7 +40,6 @@ public class UsuarioController {
                 usuarios.add(usuario);
                 // Adiciona ao banco de dados
                 new UsuariosDAO().cadastrar(cpf, nomeCompleto, telefone, email);
-                atualizarTabela(); // Atualiza a tabela
                 JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
             } else {
                 JOptionPane.showMessageDialog(null, "Verifique se o CPF está correto!", "ERRO!",
@@ -55,7 +54,6 @@ public class UsuarioController {
     // Método para apagar um usuário do banco de dados
     public void apagar(String cpf) {
         new UsuariosDAO().apagar(cpf); // Chama o método de exclusão no banco de dados
-        atualizarTabela(); // Atualiza a tabela de exibição após a exclusão
         JOptionPane.showMessageDialog(table, "Usuário removido!", null, JOptionPane.INFORMATION_MESSAGE);
     }
 
@@ -67,7 +65,6 @@ public class UsuarioController {
                                                                                  // banco de dados
                 JOptionPane.showMessageDialog(null, "Usuário atualizado com sucesso!", null,
                         JOptionPane.INFORMATION_MESSAGE);
-                atualizarTabela(); // Atualiza a tabela de exibição após a atualização
             } else {
                 JOptionPane.showMessageDialog(null, "Verifique se o CPF está correto!", "ERRO!",
                         JOptionPane.WARNING_MESSAGE);

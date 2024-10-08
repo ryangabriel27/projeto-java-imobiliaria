@@ -104,6 +104,7 @@ public class ImovelPanel extends JPanel {
         cadastraImovel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 try {
                     String cidade = inputCidade.getText();
                     String estado = inputEstado.getText();
@@ -130,22 +131,30 @@ public class ImovelPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 linhaSelecionada = table.getSelectedRow();
                 if (linhaSelecionada >= 0) {
-                    String cidade = inputCidade.getText();
-                    String estado = inputEstado.getText();
-                    String endereco = inputEndereco.getText();
-                    double valorAluguel = Double.parseDouble(inputValorAluguel.getText());
-                    String descricao = inputDescricao.getText();
-                    String status = String.valueOf(inputStatus.getSelectedItem());
-                    Imovel imovel = new Imovel();
-                    imovel.setCidade(cidade);
-                    imovel.setEstado(estado);
-                    imovel.setEndereco(endereco);
-                    imovel.setValor_aluguel(valorAluguel);
-                    imovel.setDescricao(descricao);
-                    imovel.setStatus(status);
-                    String codigo_id = String.valueOf(tableModel.getValueAt(linhaSelecionada, 0));
-                    control.atualizarImovel(imovel, codigo_id);
-                    clearInputs();
+                    int res = JOptionPane.showConfirmDialog(null, "Deseja editar este imóvel?",
+                            "Excluir", JOptionPane.YES_NO_OPTION);
+                    if (res == JOptionPane.YES_OPTION) {
+                        String cidade = inputCidade.getText();
+                        String estado = inputEstado.getText();
+                        String endereco = inputEndereco.getText();
+                        double valorAluguel = Double.parseDouble(inputValorAluguel.getText());
+                        String descricao = inputDescricao.getText();
+                        String status = String.valueOf(inputStatus.getSelectedItem());
+                        // =========================
+                        // Criando objeto e definindo valores
+                        Imovel imovel = new Imovel();
+                        imovel.setCidade(cidade);
+                        imovel.setEstado(estado);
+                        imovel.setEndereco(endereco);
+                        imovel.setValor_aluguel(valorAluguel);
+                        imovel.setDescricao(descricao);
+                        imovel.setStatus(status);
+                        String codigo_id = String.valueOf(tableModel.getValueAt(linhaSelecionada, 0));
+
+                        control.atualizarImovel(imovel, codigo_id);
+                        clearInputs();
+                    }
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Selecione um imóvel para editar.");
                 }
@@ -157,10 +166,15 @@ public class ImovelPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 linhaSelecionada = table.getSelectedRow();
                 if (linhaSelecionada >= 0) {
-                    String codigo_id = String.valueOf(tableModel.getValueAt(linhaSelecionada, 0)); // Aqui você deve ter
-                                                                                                   // o ID do imóvel.
-                    control.apagarImovel(codigo_id);
-                    clearInputs();
+                    int res = JOptionPane.showConfirmDialog(null, "Deseja excluir este usuário?",
+                            "Excluir", JOptionPane.YES_NO_OPTION);
+                    if (res == JOptionPane.YES_OPTION) {
+                        String codigo_id = String.valueOf(tableModel.getValueAt(linhaSelecionada, 0)); // Aqui você deve
+                                                                                                       // ter
+                        // o ID do imóvel.
+                        control.apagarImovel(codigo_id);
+                        clearInputs();
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Selecione um imóvel para excluir.");
                 }

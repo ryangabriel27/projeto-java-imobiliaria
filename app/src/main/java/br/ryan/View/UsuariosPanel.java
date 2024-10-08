@@ -153,7 +153,8 @@ public class UsuariosPanel extends JPanel {
                 if (res == JOptionPane.YES_OPTION) {
                     control.atualizar(inputCpf.getText(), inputNome.getText(), inputTelefone.getText(),
                             inputEmail.getText());
-                            clearInputs();
+                    atualizarTabela();
+                    clearInputs();
                 }
             }
         });
@@ -167,6 +168,7 @@ public class UsuariosPanel extends JPanel {
                         "Excluir", JOptionPane.YES_NO_OPTION);
                 if (res == JOptionPane.YES_OPTION) {
                     control.apagar(inputCpf.getText());
+                    atualizarTabela();
                     // Limpa os campos de entrada após a operação de exclusão
                     clearInputs();
                 }
